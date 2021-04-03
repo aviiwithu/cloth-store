@@ -1,5 +1,6 @@
 import { FETCH_PRODUCTS_PENDING, FETCH_PRODUCTS_SUCCESS,FETCH_PRODUCTS_FAILED,
-    CREATE_NEW_PRODUCT_PENDING,CREATE_NEW_PRODUCT_SUCCESS,CREATE_NEW_PRODUCT_FAILED
+    CREATE_NEW_PRODUCT_PENDING,CREATE_NEW_PRODUCT_SUCCESS,CREATE_NEW_PRODUCT_FAILED,
+    DELETE_PRODUCT_SUCCESS,
  
 } from '../constants/actionTypes';
 
@@ -43,6 +44,15 @@ export const getproductsReducer=(state=initialState,action)=>{
                 loading:false,
                 error:action.payload
             }
+        case DELETE_PRODUCT_SUCCESS:
+            return{
+                ...state,
+                products: state.products.filter((item)=>item._id!==action.payload) ,
+            }
+
+
+
+            
         default:
             return state;
     }

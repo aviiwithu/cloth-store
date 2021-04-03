@@ -6,36 +6,31 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import {useDispatch, useSelector} from 'react-redux';
-import{ getAllProducts,createProduct } from '../redux/actions/productActions';
-import {useLocation} from 'react-router-dom';
+import{ getAllProducts,createProduct, deleteProduct } from '../redux/actions/productActions';
 
-export default function CustomizedTables() {
+const Product =()=> {
     const dispatch = useDispatch();
-    const location = useLocation();
     const allProducts = useSelector((state)=> state.products.products);
-  const [product, setproduct] = useState(null);
-  const [productData,setProductData] = useState({name:'',category:'',subCategory:'',image:'',thumbImage:'',color:'',size:'',price:'',description:''});
+    const [productData,setProductData] = useState({name:'',category:'',subCategory:'',image:'',thumbImage:'',color:'',size:'',price:'',description:''});
 
   useEffect(()=>{
       dispatch(getAllProducts());
-      setproduct(allProducts);
   },[dispatch]);
 
   const handleChange=(e)=>{
     setProductData({...productData,[e.target.name]:e.target.value});
-    console.log(productData);
+  }
+  const clear=()=>{
+      setProductData({name:'',category:'',subCategory:'',image:'',thumbImage:'',color:'',size:'',price:'',description:''}) 
   }
   const handleSubmit=(e)=>{
       e.preventDefault();
       dispatch(createProduct(productData));
-      
+      clear();
   }
 
   return (
-      <>
-      <AddProduct>
-          {/* <IconButton onClick={()=> setOpenPopup(true)} >Add Product <AddIcon/> </IconButton> */}
-      </AddProduct>           
+      <>           
           <ProductForm onSubmit={handleSubmit} >
               <TextField variant="outlined" placeholder="product name" name="name" size="small" onChange={handleChange} value={productData.name} />
               <TextField variant="outlined" placeholder="category" name="category" size="small" onChange={handleChange} value={productData.category}  />
@@ -62,8 +57,7 @@ export default function CustomizedTables() {
                 <p>description </p>
                 <p>Action </p>
             </Heading>
-        {product?product.map((item)=>(
-            <>
+        {allProducts?allProducts.map((item)=>(
             <Products key={item._id} >
                 <p  >{item.name} </p>
                 <p>{item.category}</p>
@@ -76,24 +70,25 @@ export default function CustomizedTables() {
                 <p>{item.description}</p>
                 <div>
                     <Tooltip title="Edit Product" >
-                        <IconButton>
+                        <IconButton onClick={()=>console.log(allProducts)} >
                             <EditIcon/>
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete Product">
-                        <IconButton>
-                            <DeleteIcon/>
+                        <IconButton onClick={()=>dispatch(deleteProduct(item._id))} >
+                            <DeleteIcon />
                         </IconButton>
                     </Tooltip>
                 
                 </div>
             </Products>
-            </>
-        )):<CircularProgress color="inherit" />}
+        )):<CircularProgress />}
     
     </>
   );
 }
+
+export default Product;
 
 const Products= styled.div`
 img{
@@ -117,18 +112,6 @@ const Heading = styled.div`
     text-align: center;
     font-weight: 450;
     border-bottom:1px solid lightblue;
-`
-const AddProduct= styled.div`
-display:flex;
-align-items:center;
-justify-content:flex-end;
-.MuiIconButton-root{
-    border-radius: 5px;
-    background: #c1ecbd;
-    margin-top: 7px;
-    margin-right: 11px;
-}
-
 `
 const ProductForm = styled.form`
 display: grid;

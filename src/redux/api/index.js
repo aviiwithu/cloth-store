@@ -15,3 +15,4 @@ export const getProductByCategory=(category)=>API.get(`/products/category/${cate
 export const getProductBySubCategory=(category,subCategory)=>API.get(`/products/category/${category}/${subCategory}`,{category,subCategory});
 
 export const createProduct=(newProduct)=>API.post(`/products`, newProduct);
+export const deleteProduct=(id)=>API.delete(`/products/${id}`, {id});

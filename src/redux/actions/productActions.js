@@ -1,5 +1,6 @@
 import { FETCH_PRODUCTS_PENDING, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_FAILED,
 CREATE_NEW_PRODUCT_PENDING, CREATE_NEW_PRODUCT_SUCCESS, CREATE_NEW_PRODUCT_FAILED,
+DELETE_PRODUCT_SUCCESS,DELETE_PRODUCT_FAILED
 
 } from '../constants/actionTypes';
 import * as api from '../api/index'
@@ -22,5 +23,13 @@ export const createProduct=(productData)=> async(dispatch)=>{
         dispatch({type:CREATE_NEW_PRODUCT_SUCCESS,payload:data})
     } catch (error) {
         dispatch({type:CREATE_NEW_PRODUCT_FAILED, payload:error.message})
+    }
+}
+export const deleteProduct=(id)=> async(dispatch)=>{
+    try {
+        await api.deleteProduct(id)
+        dispatch({type:DELETE_PRODUCT_SUCCESS,payload:id})
+    } catch (error) {
+        dispatch({type:DELETE_PRODUCT_FAILED})
     }
 }
