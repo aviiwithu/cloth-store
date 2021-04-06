@@ -12,10 +12,13 @@ const Product =()=> {
     const dispatch = useDispatch();
     const allProducts = useSelector((state)=> state.products.products);
     const [productData,setProductData] = useState({name:'',category:'',subCategory:'',image:'',thumbImage:'',color:'',size:'',price:'',description:''});
+    const [productId, setProductId] = useState(0);
+    const editProduct = allProducts.find((item)=>item._id=== productId);
 
-  useEffect(()=>{
+    useEffect(()=>{
       dispatch(getAllProducts());
-  },[dispatch]);
+      if(editProduct) setProductData(editProduct);
+  },[dispatch,editProduct]);
 
   const handleChange=(e)=>{
     setProductData({...productData,[e.target.name]:e.target.value});
@@ -41,7 +44,7 @@ const Product =()=> {
               <TextField variant="outlined" placeholder="size" size="small" name="size" onChange={handleChange} value={productData.size}  />
               <TextField variant="outlined" placeholder="price" size="small" name="price" onChange={handleChange} value={productData.price}  />
               <TextField variant="outlined" placeholder="description" size="small" name="description" onChange={handleChange} value={productData.description}  />
-              <IconButton type="submit"  >Add Product <AddIcon/> </IconButton>
+              <IconButton type="submit" className={productId?"edit":"add"}  >{productId?"Edit":"Add"} <AddIcon/> </IconButton>
 
           </ProductForm>
      
@@ -70,7 +73,7 @@ const Product =()=> {
                 <p>{item.description}</p>
                 <div>
                     <Tooltip title="Edit Product" >
-                        <IconButton onClick={()=>console.log(allProducts)} >
+                        <IconButton onClick={()=>setProductId(item._id)} >
                             <EditIcon/>
                         </IconButton>
                     </Tooltip>
@@ -118,8 +121,13 @@ display: grid;
     grid-template-columns: 18% 8% 8% 8% 9% 7% 11% 12% 13% auto;
     place-items: center;
     .MuiIconButton-root{
-    border-radius: 5px;
-    background: #c1ecbd;
-   font-size:13px;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 21px;
+    color: white;
+    background:#ff9800;
 }
+   .edit{
+   background: #00bcd4;   
+   } 
 `
