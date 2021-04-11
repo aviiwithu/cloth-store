@@ -17,3 +17,4 @@ export const getProductBySubCategory=(category,subCategory)=>API.get(`/products/
 export const createProduct=(newProduct)=>API.post(`/products`, newProduct);
 export const deleteProduct=(id)=>API.delete(`/products/${id}`, {id});
 export const getAllusers=()=>API.get(`/user`);
+export const updateProductById =(productId,productData)=> API.patch(`/products/${productId}`, productData);

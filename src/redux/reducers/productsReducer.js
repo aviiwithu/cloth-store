@@ -1,6 +1,6 @@
 import { FETCH_PRODUCTS_PENDING, FETCH_PRODUCTS_SUCCESS,FETCH_PRODUCTS_FAILED,
     CREATE_NEW_PRODUCT_PENDING,CREATE_NEW_PRODUCT_SUCCESS,CREATE_NEW_PRODUCT_FAILED,
-    DELETE_PRODUCT_SUCCESS,
+    DELETE_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAILED, UPDATE_PRODUCT_SUCCESS
  
 } from '../constants/actionTypes';
 
@@ -49,8 +49,16 @@ export const getproductsReducer=(state=initialState,action)=>{
                 ...state,
                 products: state.products.filter((item)=>item._id!==action.payload) ,
             }
-
-
+        case UPDATE_PRODUCT_SUCCESS:
+            return{
+                ...state,
+                products:state.products.map((product)=> product._id===action.payload._id?action.payload:product)
+            }
+        case UPDATE_PRODUCT_FAILED:
+            return{
+                ...state,
+                error:action.payload
+            }
 
             
         default:
