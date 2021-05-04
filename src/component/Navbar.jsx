@@ -34,6 +34,7 @@ const NavItems = styled.div`
 display:flex;
 a{
     text-decoration:none;
+    color:inherit;
   }
 li{
   list-style:none;

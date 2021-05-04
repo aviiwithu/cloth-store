@@ -44,7 +44,7 @@ const Product =()=> {
 
         <Dialog  open={isOpen} fullWidth >
          <DialogTitle >
-             Add product
+             {productId?"Edit":"Add"} product
          </DialogTitle>
          
              <TextField variant="outlined" placeholder="product name" name="name" size="small" onChange={handleChange} value={productData.name} />
