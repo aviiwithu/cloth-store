@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {Switch,Route} from 'react-router-dom';
+import Children from './Components/Children';
+import Footer from './Components/Footer';
+import HomePage from './Components/HomePage';
+import Login from './Components/Login';
+import Men from './Components/Men';
+import Navbar from './Components/Navbar';
+import ProductDetails from './Components/Reusable/ProductDetails';
+import Women from './Components/Women';
+import Cart from './Components/Cart';
 
-function App() {
+const App = () => {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+    <Navbar/>
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/men" component={Men} />
+      <Route exact path="/women" component={Women} />
+      <Route exact path="/children" component={Children} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/detail/:id" component={ProductDetails} />
+      <Route exact path="/cart" component={Cart} />
+    </Switch>
+      <Footer/>
+  
+      
+    </>
+  )
 }
 
-export default App;
+export default App
