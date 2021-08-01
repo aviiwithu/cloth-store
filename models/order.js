@@ -10,6 +10,7 @@ const orderSchema = mongoose.Schema({
         {
             productName: { type: String, required: true },
             qty:{ type: Number, required: true, default: 1 },
+            color:{ type: String, required: true},
             productImage: { type: String, required: true },
             productPrice: { type: Number, required: true },
             itemId: {
@@ -23,7 +24,18 @@ const orderSchema = mongoose.Schema({
         type: String,
         required: true,
         default: "Received"
+    },
+    paymentStatus:{
+        type: String,
+        required: true,
+        default: "pending"
+    },
+    address:{
+        type: String,
+        required: true
     }
+},{
+    timestamps: true
 });
 
 const Order = mongoose.model("Order", orderSchema);

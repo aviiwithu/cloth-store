@@ -1,41 +1,41 @@
 import mongoose from 'mongoose';
 
-const productSchema = mongoose.Schema({
+export const productSchema = mongoose.Schema({
     name:{
         type: String,
-        required: true
+        required: [true,"product must have a name"]
     },
     image: {
         type: String,
-        required: true,
+        required: [true, "please add product image"],
     },
     thumbImage:{
         type: String,
-        required: true
+        required: [true, "please add thumbnail image"]
     },
     category: {
         type: String,
-        required: true
+        required: [true, "product must belong to a category"]
     },
     subCategory:{
         type: String,
-        required: true
+        required: [true, "please mention sub category"]
     },
     description: {
         type: String,
-        required: true
+        required: [true, "enter product description"]
     },
     color:{
         type: String,
-        required: true
+        required: [true," product color cannot be empty"]
     },
     size:{
         type: Number,
-        required: true
+        required: [true, "product must have a size"]
     },
     price:{
         type: Number,
-        required: true
+        required: [true, "product cannot be saved without price"]
     }
 })
 

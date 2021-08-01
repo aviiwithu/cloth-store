@@ -9,7 +9,6 @@ connectDB();
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
-
 // end routes import
 
 const app = express();
@@ -24,6 +23,7 @@ app.get("/", (req,res)=>{
 // setting routes path
 app.use('/api/products', productRoutes);
 app.use('/api/user', userRoutes);
+
 
 
 const PORT = process.env.PORT || 5000

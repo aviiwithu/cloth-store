@@ -19,6 +19,10 @@ const userSchema = mongoose.Schema({
         required: true,
         default: false
     },
+    wishList:[{
+       type:mongoose.Schema.Types.ObjectId,
+       ref:"Product"
+    }],
     cartList:[
         {
             itemId: {
@@ -26,19 +30,31 @@ const userSchema = mongoose.Schema({
                 required: true,
                 ref: 'Product'
             },
-            productName: {
-                type: String,
-                required:true
-            },
-            productImage:{
-                type:String,
-                required: true
-            },
-            productPrice:{
-                type:Number,
-                required: true
-            },
             quantity: {
+                type: Number,
+                required: true
+            },
+            size: {
+                type: String,
+                required: true
+            },
+            color: {
+                type: String,
+                required: true
+            }        
+        }
+    ],
+    orders: [
+        {
+            orderId:{
+                type: mongoose.Schema.Types.ObjectId,
+                required: [true, "order id not present in user order"]
+            },
+            price:{
+                type: Number,
+                required: true
+            },
+            quantity:{
                 type: Number,
                 required: true
             }
